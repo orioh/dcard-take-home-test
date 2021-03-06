@@ -8,7 +8,7 @@ class TestController {
      * [Get] /api/test
      */
     public static get(req: Request, res: Response) {
-        
+
         res.json(new UnifiedResponse(true, 'okok'));
     }
 

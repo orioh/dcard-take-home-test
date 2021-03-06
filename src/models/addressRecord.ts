@@ -1,5 +1,5 @@
 
-const locks = require('locks');
+import locks = require('locks');
 import * as moment from 'moment'
 
 class AddressRecord {

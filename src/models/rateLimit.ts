@@ -1,6 +1,6 @@
 
 interface RateLimit {
-    intervalInSeconds: number; //second
+    intervalInSeconds: number;
     max: number;
 }
 
