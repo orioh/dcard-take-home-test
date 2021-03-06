@@ -2,7 +2,7 @@
 class Tools {
 
     static uniqueId() {
-        var date = new Date();
+        const date = new Date();
         return [
             date.getFullYear(),
             date.getMonth(),
