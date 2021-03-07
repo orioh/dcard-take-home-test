@@ -1,6 +1,6 @@
 {
     "restartable": "rs",
-    "exec": "npm run lint && npm run dev-serve",
+    "exec": "npm run lint && npm run start",
     "ignore": [
         ".git",
         "node_modules/",
