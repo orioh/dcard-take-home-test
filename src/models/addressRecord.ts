@@ -6,7 +6,7 @@ class AddressRecord {
 
     ip: string = '';
     mutex = locks.createMutex();
-    windowStartTime: moment.Moment = null;
+    windowStartTime: moment.Moment = moment();
     counter: number = 0;
 
     constructor(ip: string) {

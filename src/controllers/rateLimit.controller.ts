@@ -17,42 +17,31 @@ class RateLimitController {
                 const now = moment();
 
                 /**
-                 * check if the first request of current ip
-                 */
-                if(!record.windowStartTime){
-                    record.reset(now);
-                }
-
-                /**
                  * get elapsed seconds compared to current window start time
-                 *  -> if exceed window size, reset the counter
+                 *  -> if exceed window interval, reset the counter
                  */
-                const elapsedSeconds = now.diff(record.windowStartTime, 'seconds');
-                if( elapsedSeconds > rateLimit.intervalInSeconds) {
+                let elapsedSeconds = moment.duration(now.diff(record.windowStartTime)).asMilliseconds() / 1000;
+                elapsedSeconds = Math.round(elapsedSeconds * 100) / 100
+
+                if (elapsedSeconds > rateLimit.intervalInSeconds) {
                     record.reset(now);
                 }
 
                 /**
                  * now we check if request number reach the limit
                  */
-                if(record.counter >= rateLimit.max) {
-                    const toWait = rateLimit.intervalInSeconds - elapsedSeconds;
-                    const msg = `you(${ip}) have reached the request limit '${rateLimit.max}'`
-                                + ` within ${rateLimit.intervalInSeconds} seconds,`
-                                + ` please try again ${toWait} second(s) later`;
+                if (record.counter >= rateLimit.max) {
+                    const toWait = Math.round((rateLimit.intervalInSeconds - elapsedSeconds) * 100) / 100 ;
+                    const msg = `You(${ip}) have reached '${rateLimit.max}' request limit`
+                        + ` within ${rateLimit.intervalInSeconds} seconds,`
+                        + ` please try again ${toWait} second(s) later`;
                     res.status(500).json(new UnifiedResponse(false, msg));
 
-                }else{
+                } else {
                     record.counter += 1;
-                    res.json(new UnifiedResponse(true, `request success`, record.counter));
-
-                    /**
-                     * should just allow it to pass through target api,
-                     *  --> we simplified it for testing by return result directly
-                     */
-                    // next();
+                    req.query.rateLimitCounter = record.counter.toString();
+                    next();
                 }
-
 
                 record.mutex.unlock();
             });

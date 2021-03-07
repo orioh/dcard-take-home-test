@@ -13,7 +13,7 @@ class TestRoutes extends BasicRoute {
      * bind rate limit as middleware for test api
      */
     const rateLimit: RateLimit = { max: 60, intervalInSeconds: 60 };
-    if(process.env.NODE_ENV.toLowerCase() === 'test' ) {
+    if(process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() === 'test' ) {
       rateLimit.max = parseInt(process.env.RATE_LIMIT_MAX, 10) || 10;
       rateLimit.intervalInSeconds = parseInt(process.env.RATE_LIMIT_INTERVAL, 10) || 10;
     }
