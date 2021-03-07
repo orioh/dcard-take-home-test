@@ -9,7 +9,10 @@ class RateLimitController {
     public static verify(rateLimit: RateLimit) {
         return (req: Request, res: Response, next) => {
 
-            const ip = req.query.ip || req.ip;
+            const ip = ((req.query.ip
+                || req.headers['x-forwarded-for']
+                || req.connection.remoteAddress) as string).split(',')[0].trim()
+
             const record = DataCenter.getAddressRecord(ip as string);
 
             record.mutex.lock(() => {
@@ -31,7 +34,7 @@ class RateLimitController {
                  * now we check if request number reach the limit
                  */
                 if (record.counter >= rateLimit.max) {
-                    const toWait = Math.round((rateLimit.intervalInSeconds - elapsedSeconds) * 100) / 100 ;
+                    const toWait = Math.round((rateLimit.intervalInSeconds - elapsedSeconds) * 100) / 100;
                     const msg = `You(${ip}) have reached '${rateLimit.max}' request limit`
                         + ` within ${rateLimit.intervalInSeconds} seconds,`
                         + ` please try again ${toWait} second(s) later`;
@@ -39,6 +42,7 @@ class RateLimitController {
 
                 } else {
                     record.counter += 1;
+                    req.query.clientip = ip;
                     req.query.rateLimitCounter = record.counter.toString();
                     next();
                 }
