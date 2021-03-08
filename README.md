@@ -1,15 +1,17 @@
 
-## Take Home Test Project
+# Take Home Test Project
 
 for applying Back-end Web Developer of Dcard 
 
+<br/>
 
-### 🔗 Demo Link
+## 🔗 Demo Link
 
 [Live Demo on HeroKu](https://dc-take-home-test.herokuapp.com/)
 
+<br/>
 
-### 📦 Setup Enviroment
+## 📦 Setup Enviroment
 
 
 Install dependencies with:
@@ -18,8 +20,9 @@ Install dependencies with:
 > npm install
 ```
 
+<br/>
 
-### 🔨 Usage 
+## 🔨 Usage 
 
 Unit test with mocha/chai: 
 
@@ -37,9 +40,9 @@ Then you can do the test the on web page http://localhost:3000/
 
 or you can send request with [get]-api "http://localhost:3000/api/test" directly 
 
+<br/>
 
-
-### 🎨 Ideas 
+## 🎨 Ideas 
 
 
 #### Rate Limit Control
@@ -62,5 +65,4 @@ For example:
  - You can test mock-ip with http://localhost:3000/api/test?ip={mock-ip}.
 
 ![My Ideas](https://drive.google.com/uc?export=view&id=1CP70nlS4fBbILGlQ79asqmYR3ngQyPIf)
-
 
