@@ -45,7 +45,7 @@ or you can send request with [get]-api "http://localhost:3000/api/test" directly
 ## 🎨 Ideas 
 
 
-#### Rate Limit Control
+### Rate Limit Control
 "**RateLimitController**" is designed as the middleware,  this way we can define different rules for each router.
 
 For example:
@@ -54,15 +54,16 @@ For example:
 - limit 20 requests in 1 hours for login/register api "/api/auth"
 - ...
 
-#### In Memory Database
+### In Memory Database
  - "**DataCenter**" handle request records of all users (based on request ip address).
  - We take it as an adaptor, and it can be updated to use other database easily.
 
 
-#### Note: 
+### Note: 
 
 - We allow the api to attach mock-ip as query-parameter.
  - You can test mock-ip with http://localhost:3000/api/test?ip={mock-ip}.
 
 ![My Ideas](https://drive.google.com/uc?export=view&id=1CP70nlS4fBbILGlQ79asqmYR3ngQyPIf)
+
 
